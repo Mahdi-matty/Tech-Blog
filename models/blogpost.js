@@ -8,6 +8,7 @@ BlogPost.init({
     // add properites here, ex:
     id : {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true
     },
@@ -19,9 +20,9 @@ BlogPost.init({
         type: DataTypes.STRING,
         allowNull:false
    },
-    date:{
-        type:DataTypes.DATETIME,
-        defaultValue: DataTypes.NOW,
+    blogDate:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
 },{
     sequelize

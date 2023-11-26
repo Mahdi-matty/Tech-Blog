@@ -8,6 +8,7 @@ User.init({
     // add properites here, ex:
     id : {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true
     },

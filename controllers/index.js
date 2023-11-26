@@ -1,3 +1,4 @@
+const express = require('express');
 const router = express.Router();
 const {User,BlogPost} = require("../models");
 const userRoutes = require("./userRoutes");

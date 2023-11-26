@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
     BlogPost.create({
       title: req.body.title,
       content: req.body.content,
-      date: req.session.user.date,
+      blogDate: req.session.user.blogDate,
     })
       .then((newTodo) => {
         res.json(newTodo);
@@ -55,7 +55,7 @@ router.put("/:id", (req, res) => {
     {
         title: req.body.title,
         content: req.body.content,
-        date: req.session.user.date,
+        blogDate: req.session.user.blogDate,
     },
     {
       where: {
