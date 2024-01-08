@@ -20,6 +20,10 @@ BlogPost.init({
         type: DataTypes.STRING,
         allowNull:false
    },
+   user_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false
+   },
     blogDate:{
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

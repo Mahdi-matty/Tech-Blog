@@ -1,0 +1,21 @@
+<h1>Welcome to weblog, {{username}}</h1>;
+ <a class="nav-link active" aria-current="page" href="/api/users/logout">Logout</a>
+
+
+<div class="p2 post-col">
+            Title : <input type="text" class="form-control titleSearchProf" id="title basic-url"
+                aria-describedby="basic-addon3">
+            Content : <textarea class="form-control blogPostContent" id="content" aria-label="With textarea"></textarea>
+            <button id="submitBtn">Submit</button>
+</div>
+<div class="container">
+    
+        {{#each BlogPosts}}
+        {{> profile-details}}
+        {{/each}}
+</div>
+
+
+<script src="/js/post.js"></script>
+  <script src="/js/comment.js"></script>
+  <script src="/js/update.js"></script>

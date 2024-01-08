@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { User, BlogPost } = require("../models");
+const { User, BlogPost, Comment } = require("../models");
 
 //find all
 router.get("/", (req, res) => {
-  BlogPost.findAll()
+  BlogPost.findAll({
+    include:[Comment]
+})
     .then((dbBlogPost) => {
       res.json(dbBlogPost);
     })
@@ -12,10 +14,19 @@ router.get("/", (req, res) => {
       res.status(500).json({ msg: "oh no!", err });
     });
 });
+let userid;
+const isAuthenticated = (req, res, next) => {
+  if (!req.session.user) {
+    res.status(403).json({ msg: "Login first to perform this action!" });
+  } else {
+    userid= req.session.user
+    next();
+  }
+};
 //find one
 router.get("/:id", (req, res) => {
   BlogPost.findByPk(req.params.id, {
-    include: [User],
+    include: [User, Comment],
   })
     .then((dbBlogposts) => {
       if (!dbBlogposts) {
@@ -29,23 +40,22 @@ router.get("/:id", (req, res) => {
     });
 });
 //create
-router.post("/", (req, res) => {
-  if (!req.session.user) {
-    res.status(403).json({ msg: "login first to join the club!" });
-  } else {
+router.post("/",isAuthenticated, (req, res) => {
+  const { title, content, user_id } = req.body;
+  console.log("Received Request Data:", { title, content, user_id });
     BlogPost.create({
-      title: req.body.title,
-      content: req.body.content,
-      blogDate: req.session.user.blogDate,
+      title,
+      content,
+      user_id, 
     })
-      .then((newTodo) => {
-        res.json(newTodo);
+      .then((BlogPost) => {
+        res.json(BlogPost);
       })
       .catch((err) => {
         res.status(500).json({ msg: "oh no!", err });
       });
   }
-});
+);
 //edit
 router.put("/:id", (req, res) => {
   if (!req.session.user) {
